@@ -1,0 +1,26 @@
+{% extends "frontend/base.html" %}
+{% block content %}
+    {% for book in books %}
+        <div class="catalog">
+            <table class="book">
+            <tr>
+                <td class="book">
+                    <p><b>{{book.title}}</b></p>
+                    <p><i>{{book.author}}</i></p>
+                    <p>Books: {{book.inventory}} | Available: {{book.availability}}
+                    {% if book.availability > 0 %}
+                        | <a href="#">Borrow</a></p>
+                    {% endif %}
+                </td>
+                <td>
+                    <img class="book" src="{{book.cover}}" alt="cover">
+                </td>
+            </tr>
+            </table>
+        </div>
+    {% endfor %}
+{% endblock content %}
+
+
+
+

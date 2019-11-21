@@ -1,0 +1,51 @@
+/* Page section styles */
+.page {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 10px;
+  padding: 0px;
+}
+
+.header {
+  background-color: #0277bd;
+  color:white;
+  font-size: 120%;
+  margin: 0px;
+  padding: 10px;
+}
+
+.catalog {
+  padding: 20px;
+}
+
+/* Book catalog styles */
+img.book {
+  height: 15%;
+  width: 15%;
+}
+
+table.book {
+  width: 100%;
+}
+
+td.book {
+  width: 50%;
+}
+
+/* Page menu hyperlink styles */
+a:link.menu {
+  background-color: #0277bd;
+  color: white;
+  text-decoration: none;
+}
+a:visited.menu {
+  background-color: #0277bd;
+  color: white;
+}
+a:hover.menu {
+  background-color: white;
+  color: #0277bd;
+}
+a:active.menu {
+  background-color: #ffb74d;
+  color: #0277bd;
+}
