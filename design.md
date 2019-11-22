@@ -1,4 +1,4 @@
-# Mobile Library, Containerized Microservices demo
+# Containerized Microservices demo
 
 ## Services
 - Database services
@@ -6,15 +6,16 @@
 - Web front-end
 
 ## Database services
-Three independant MySQL databases, one for each service. Schema and REST interface follows.
+Three independant databases services, and one MySQL database. Schema and REST interface follows.
 
 ### Patron registry database
 __Service__
 This database holds the names of authorized patrons of the library. Patrons' full names and library ID card numbers (patronNum) are stored in the database, and can be retrieved by other services in order to validate a patron's account. If a patron's name exists in this database then the patron is authorized to lend a book from the library.
 The service provides an interface for adding and removing patron names.
-This service is bound to port 5000.
+This service is bound to port 5003.
 
 __REST end-points__
+
 | Method | Patron service end-points                 | Action                      | 
 |--------|-------------------------------------------|-----------------------------| 
 | GET    | http://[hostname]/patdb                   | All records                 |
@@ -45,6 +46,7 @@ This database holds the list of books available in the library. The database sto
 This service is bound to port 5001.
 
 __REST end-points__
+
 | Method | Catalog service end-points            | Action                  | 
 |--------|---------------------------------------|-------------------------| 
 | GET    | http://[hostname]/catdb               | All records             |
@@ -75,6 +77,7 @@ This database holds the book lending transactions. The other two databases are s
 This service is bound to port 5002.
 
 __REST end-points__
+
 | Method | Book borrowing end-point                          | Action                  | 
 |--------|---------------------------------------------------|-------------------------| 
 | GET    | http://[hostname]/borrowdb                        | All records             |
@@ -120,7 +123,7 @@ CREATE TABLE IF NOT EXISTS borrowed
 ```
 
 ## Library business logic
-### Borrowing management service
+### Borrowing logic service
 __Service__
 This service managest the borrowing logic.
 1. Check if patron exists in the registry (unless we only allow registered patrons to log in and view the catalog).
@@ -132,6 +135,7 @@ This service is bound to port 5003.
 TODO: GET output, POST, and DELETE JSON formats,
 
 __REST end-points__
+
 | Method | Book borrowing end-point              | Action                       | 
 |--------|---------------------------------------|------------------------------| 
 | GET    | http://[hostname]/borrow/<patron_num> | Book list borrowed by patron |
@@ -144,10 +148,10 @@ TODO: not implemented
 
 ## Web access services
 ### Frontend
-The web frontend is the access method for library patrons. It provides a book catalog view and a book borrowing interface. The front end is build with a Django framework and includes:
+The web frontend is the access method for library patrons. It provides a book catalog view and a book borrowing interface. The front end is built using a Django web framework and includes:
 - Home page dislaying library book catalog with a 'Borrow' botton/link
-- Patron login for borrowing or before displaying patron's borrowed books. The page will ask for patron's first and last name, and patron's library ID.
-- Patron's borrowed book list. Displayed afer successful borrowing, or when request through link on the catalog bage.
+- Patron login for borrowing or displaying patron's borrowed books. The page will ask for patron's first and last name, and patron's library ID.
+- Patron's borrowed book list. Displayed afer successful borrowing, or when requested through link on the catalog page.
 
 The front end service will communicate with the catalog services, the patron registry service, and the library borrowing logic service through their respective RSET interfaces.
 
