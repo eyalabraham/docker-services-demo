@@ -6,7 +6,7 @@
 - Web front-end
 
 ## Database services
-Three independant databases services, and one MySQL database. Schema and REST interface follows.
+Three independant database services, and one MySQL database. Schema and REST interface follows.
 
 ### Patron registry database
 __Service__
@@ -19,9 +19,9 @@ __REST end-points__
 | Method | Patron service end-points                 | Action                      | 
 |--------|-------------------------------------------|-----------------------------| 
 | GET    | http://[hostname]/patdb                   | All records                 |
-| GET    | http://[hostname]/patdb/pnum/<patron_num> | Patron by membership number |
-| GET    | http://[hostname]/patdb/key/<name>        | All records containing name |
-| GET    | http://[hostname]/patdb/test/<qualifier>  | Test if patron exists       |
+| GET    | http://[hostname]/patdb/pnum/'patron_num' | Patron by membership number |
+| GET    | http://[hostname]/patdb/key/'name'        | All records containing name |
+| GET    | http://[hostname]/patdb/test/'qualifier'  | Test if patron exists       |
 | POST   | http://[hostname]/patdb                   | Add patron                  |
 | PUT    | http://[hostname]/patdb                   | Update patron info          |
 | DELETE | http://[hostname]/patdb                   | Remove patron               |
@@ -50,9 +50,9 @@ __REST end-points__
 | Method | Catalog service end-points            | Action                  | 
 |--------|---------------------------------------|-------------------------| 
 | GET    | http://[hostname]/catdb               | All records             |
-| GET    | http://[hostname]/catdb/<int:book_id> | Record with specific id |
-| GET    | http://[hostname]/catdb/author/<name> | Records of author       |
-| GET    | http://[hostname]/catdb/title/<text>  | Records of title        |
+| GET    | http://[hostname]/catdb/'int:book_id' | Record with specific id |
+| GET    | http://[hostname]/catdb/author/'name' | Records of author       |
+| GET    | http://[hostname]/catdb/title/'text'  | Records of title        |
 | POST   | http://[hostname]/catdb               | Add book                |
 | PUT    | http://[hostname]/catdb               | Return 404              |
 | DELETE | http://[hostname]/catdb               | Remove book             |
@@ -81,10 +81,10 @@ __REST end-points__
 | Method | Book borrowing end-point                          | Action                  | 
 |--------|---------------------------------------------------|-------------------------| 
 | GET    | http://[hostname]/borrowdb                        | All records             |
-| GET    | http://[hostname]/borrowdb/<int:id>               | Specific id             |
-| GET    | http://[hostname]/borrowdb/patron/<int:patron_id> | Specific patron's books | 
-| GET    | http://[hostname]/borrowdb/due/<date>             | Books due on date       | 
-| GET    | http://[hostname]/borrowdb/count/<int:book_id>    | Count books out         |
+| GET    | http://[hostname]/borrowdb/'int:id'               | Specific id             |
+| GET    | http://[hostname]/borrowdb/patron/'int:patron_id' | Specific patron's books | 
+| GET    | http://[hostname]/borrowdb/due/'date'             | Books due on date       | 
+| GET    | http://[hostname]/borrowdb/count/'int:book_id'    | Count books out         |
 | POST   | http://[hostname]/borrowdb                        | Add a borrow entry      |
 | PUT    | http://[hostname]/borrowdb                        | Return 404              |
 | DELETE | http://[hostname]/borrowdb                        | Delete a borrow entry   |
@@ -125,20 +125,18 @@ CREATE TABLE IF NOT EXISTS borrowed
 ## Library business logic
 ### Borrowing logic service
 __Service__
-This service managest the borrowing logic.
+This service manages the borrowing logic.
 1. Check if patron exists in the registry (unless we only allow registered patrons to log in and view the catalog).
 2. For the requested book get count of borrowed copies and compare to the inventory count.
 3. If patron exists, and borrowed count is less than available count and less than borrowing limit, then proceed to borrowing, otherwise return an error.
 4. POST borrowing transaction to database and confirm borrow action.
-This service is bound to port 5003.
-
-TODO: GET output, POST, and DELETE JSON formats,
+5. This service is bound to port 5003.
 
 __REST end-points__
 
 | Method | Book borrowing end-point              | Action                       | 
 |--------|---------------------------------------|------------------------------| 
-| GET    | http://[hostname]/borrow/<patron_num> | Book list borrowed by patron |
+| GET    | http://[hostname]/borrow/'patron_num' | Book list borrowed by patron |
 | POST   | http://[hostname]/borrow              | Add a borrow entry           |
 | PUT    | http://[hostname]/borrow              | Return 404                   |
 | DELETE | http://[hostname]/borrow              | Delete a borrow entry        |

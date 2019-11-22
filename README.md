@@ -84,6 +84,6 @@ urllib3==1.25.7
 [Python REST API CRUD Example using Flask and MySQL](https://www.roytuts.com/python-rest-api-crud-example-using-flask-and-mysql/), [MySQL Server on Ubuntu](https://support.rackspace.com/how-to/installing-mysql-server-on-ubuntu/), [Designing a RESTful API with Python and Flask](https://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask), [HTTP Status Codes](https://www.restapitutorial.com/httpstatuscodes.html)
 
 ## TODOs
-1. Replace the sleep() functions in the backend services with a function that waits for the database connection to be ready with periodic retries. Specifically in the database related services.
+1. Replace the ```sleep()``` functions in the backend services with a function that waits for the database connection to be ready with periodic retries. Specifically in the database related services.
 2. Would database connection recovery be necessary if database connection is dropped after it was started properly? If yes, then a recovery will be necessary in exception clauses of REST endpoints.
 3. ...more...
