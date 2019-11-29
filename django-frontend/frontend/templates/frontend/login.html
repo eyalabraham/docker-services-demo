@@ -1,0 +1,15 @@
+{% extends "frontend/base.html" %}
+{% block content %}
+
+<p><b style="color:{{form.color}}">{{form.title}}</b></p>
+<form action="{% url 'frontend-login' %}" method="post">
+{% csrf_token %}
+{% if form.need_login == 'yes' %}
+            {{ form.form.as_p }}
+            <input type="submit" value="Submit">
+{% else %}
+            <input type="submit" value="Logout">
+{% endif %}
+</form>
+
+{% endblock content %}

@@ -1,7 +1,6 @@
 version: "3.7"
 
 services:
-
 #
 # MySQL database services
 #  --skip-ssl options must remain
@@ -13,7 +12,7 @@ services:
         environment:
             - MYSQL_ROOT_PASSWORD=${LOCAL_MYSQL_ROOT_PASSWORD}
         command: --skip-ssl
-        image: sql_backend:0.1
+        image: sql_backend:${IMAGE_BUILD_TAG}
         container_name: ${DB_SERVICE_NAME}
         networks:
             - library-net
@@ -28,7 +27,7 @@ services:
         command: --host ${LOCAL_HOST} --db ${DB_SERVICE_NAME}
         depends_on:
             - database
-        image: catalog_db:0.1
+        image: catalog_db:${IMAGE_BUILD_TAG}
         container_name: ${CATALOG_DB_SERVICE_NAME}
         networks:
             - library-net
@@ -43,12 +42,44 @@ services:
         command: --host ${LOCAL_HOST} --db ${DB_SERVICE_NAME}
         depends_on:
             - database
-        image: borrowing_db:0.1
+        image: borrowing_db:${IMAGE_BUILD_TAG}
         container_name: ${BORROW_DB_SERVICE_NAME}
         networks:
             - library-net
         ports:
             - "8002:5002"
+#
+# Patrons REST database interface service
+#
+    patron:
+        build:
+            context: ./flask-services/src/patronsdbservice
+        command: --host ${LOCAL_HOST} --db ${DB_SERVICE_NAME}
+        depends_on:
+            - database
+        image: patrons_db:${IMAGE_BUILD_TAG}
+        container_name: ${PATRON_DB_SERVICE_NAME}
+        networks:
+            - library-net
+        ports:
+            - "8003:5003"
+#
+# Library borrowing logic service REST interface
+#
+    liblogic:
+        build:
+            context: ./flask-services/src/borrowlogicservice
+        command: --host ${LOCAL_HOST} --cat ${CATALOG_DB_SERVICE_NAME} --borrow ${BORROW_DB_SERVICE_NAME}
+        depends_on:
+            - catalog
+            - borrow
+            - patron
+        image: lib_logic:${IMAGE_BUILD_TAG}
+        container_name: ${BORROW_LOGIC_SERVICE_NAME}
+        networks:
+            - library-net
+        ports:
+            - "8004:5004"
 #
 # Web front end
 #  a custom local host IP address should be provided in the .env file
@@ -57,18 +88,22 @@ services:
 #  variable is preferred but not implemented here.
 #
     frontend:
+        env_file:
+            - ./sample.env
         build:
             context: ./django-frontend
         environment:
             - CATALOG_DB_SERVICE=${CATALOG_DB_SERVICE_NAME}
             - BORROW_DB_SERVICE=${BORROW_DB_SERVICE_NAME}
+            - PATRON_DB_SERVICE=${PATRON_DB_SERVICE_NAME}
             - BORROW_LOGIC_SERVICE=${BORROW_LOGIC_SERVICE_NAME}
         command: ${LOCAL_HOST}:8000
         depends_on:
-            - database
             - catalog
             - borrow
-        image: web_frontend:0.1
+            - patron
+            - liblogic
+        image: web_frontend:${IMAGE_BUILD_TAG}
         container_name: ${FRONTEND_SERVICE_NAME}
         networks:
             - library-net

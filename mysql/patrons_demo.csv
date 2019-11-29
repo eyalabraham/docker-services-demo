@@ -1,7 +1,7 @@
-id,firstName,lastName,patronNum
-1,Pete,Dymond,BUFFALOBILL1
-2,Laine,Scheidegger,DEADBEEF2222
-3,Reid,Koffler,BUMBLEBEE333
-4,Wilfred,Hatter,SKYWALKER444
-5,Lorelei,Cowher,HANSOLO55555
-6,Anastacia,Coram,DARTHVADER66
+id,firstName,lastName,patronNum,role
+1,Pete,Dymond,BUFFALOBILL1,user
+2,Laine,Scheidegger,DEADBEEF2222,user
+3,Reid,Koffler,BUMBLEBEE333,user
+4,Wilfred,Hatter,SKYWALKER444,user
+5,Lorelei,Cowher,HANSOLO55555,user
+6,Anastacia,Coram,DARTHVADER66,user

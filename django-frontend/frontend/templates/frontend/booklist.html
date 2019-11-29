@@ -1,0 +1,20 @@
+{% extends "frontend/base.html" %}
+{% block content %}
+    <h3>Your borrowed book list:</h3>
+    {% for book in books %}
+        <div class="catalog">
+            <table class="book">
+            <tr>
+                <td class="book">
+                    <p><b>{{book.title}}</b></p>
+                    <p><i>{{book.author}}</i></p>
+                    <p>Return date: {{book.due_date}}
+                </td>
+                <td>
+                    <img class="book" src="{{book.cover}}" alt="cover">
+                </td>
+            </tr>
+            </table>
+        </div>
+    {% endfor %}
+{% endblock content%}

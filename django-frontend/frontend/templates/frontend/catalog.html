@@ -1,5 +1,7 @@
 {% extends "frontend/base.html" %}
 {% block content %}
+    <h3>Online book catalog</h3>
+    <p>Click the 'borrow' button to borrow a book:</p>
     {% for book in books %}
         <div class="catalog">
             <table class="book">
@@ -7,20 +9,20 @@
                 <td class="book">
                     <p><b>{{book.title}}</b></p>
                     <p><i>{{book.author}}</i></p>
-                    <p>Books: {{book.inventory}} | Available: {{book.availability}}
-                    {% if book.availability > 0 %}
-                        | <a href="#">Borrow</a></p>
-                    {% endif %}
+                    Books: {{book.inventory}} | Available: {{book.availability}}
                 </td>
                 <td>
                     <img class="book" src="{{book.cover}}" alt="cover">
+                    {% if book.availability > 0 %}
+                        <form action="{% url 'frontend-catalog' %}" method="post">
+                            {% csrf_token %}
+                            <!-- The key 'book_id' and the book.code value will be POST'ed -->
+                            <button style="color:blue" type="submit" name="book_id" value="{{book.code}}">Borrow</button>
+                        </form>
+                    {% endif %}
                 </td>
             </tr>
             </table>
         </div>
     {% endfor %}
-{% endblock content %}
-
-
-
-
+{% endblock %}

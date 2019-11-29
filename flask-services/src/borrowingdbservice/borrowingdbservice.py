@@ -2,6 +2,9 @@
 Book borrowing database service.
 11/13/19    Created
 '''
+import argparse
+import time
+
 from flask import Flask
 from flask import jsonify
 from flask import abort
@@ -10,15 +13,12 @@ from flask import request
 
 from mysql.connector import connect
 
-import argparse
-import time
-
 #
 # MySQL database connector initialization
 # TODO: replace the sleep with a poll of the database service
 #
-time.sleep(20)
 print('[Note] Pausing for database initialization...')
+time.sleep(20)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--host', default='localhost')
@@ -64,7 +64,7 @@ def get_all_transactions():
     if cursor.rowcount > 0:
         return jsonify({'transactions': records})
     else:
-        abort(404)
+        return jsonify({'transactions': None})
 
 
 @app.route('/borrowdb/<int:id>', methods=['GET'])
@@ -84,7 +84,7 @@ def get_transaction_by_id(id):
     if cursor.rowcount > 0:
         return jsonify({'transaction': records})
     else:
-        abort(404)
+        return jsonify({'transaction': None})
 
 @app.route('/borrowdb/patron/<int:patron_id>', methods=['GET'])
 def get_transaction_by_patron(patron_id):
@@ -103,7 +103,7 @@ def get_transaction_by_patron(patron_id):
     if cursor.rowcount > 0:
         return jsonify({'transactions': records})
     else:
-        abort(404)
+        return jsonify({'transactions': None})
 
 @app.route('/borrowdb/due/<date>', methods=['GET'])
 def get_transaction_by_due_date(date):
@@ -123,7 +123,7 @@ def get_transaction_by_due_date(date):
     if cursor.rowcount > 0:
         return jsonify({'transactions': records})
     else:
-        abort(404)
+        return jsonify({'transactions': None})
 
 @app.route('/borrowdb/count/<int:book_id>', methods=['GET'])
 def count_books_borrowed(book_id):
@@ -142,7 +142,7 @@ def count_books_borrowed(book_id):
     if cursor.rowcount > 0:
         return jsonify({'transactions': records})
     else:
-        abort(404)
+        return jsonify({'transactions': None})
 
 @app.route('/borrowdb', methods=['POST'])
 def add_borrow():
@@ -150,15 +150,17 @@ def add_borrow():
     Validate JSON representation of borrowing action and persist to database.
     Return an HTTP 201 created status if transaction is successful.
     '''
-    if (not request.json or
-        not 'book_id' in request.json or
-        not 'patron_id' in request.json or
-        not 'date_out' in request.json or
-        not 'date_due' in request.json):
+    borrow_request = request.json['borrow']
+
+    if (borrow_request is None or
+        'book_id' not in borrow_request or
+        'patron_id' not in borrow_request or
+        'date_out' not in borrow_request or
+        'date_due' not in borrow_request):
         abort(400)
 
     sql = 'INSERT INTO borrowed (bookId, patronId, dateOut, dateDue) VALUES (%s, %s, %s, %s);'
-    val = (request.json['book_id'], request.json['patron_id'], request.json['date_out'], request.json['date_due'])
+    val = (borrow_request['book_id'], borrow_request['patron_id'], borrow_request['date_out'], borrow_request['date_due'])
 
     try:
         cursor.execute('USE borrowdb;')
@@ -176,14 +178,16 @@ def delete_borrow():
     '''
     Delete a book borrowing transaction.
     '''
-    if (not request.json or
-        not 'book_id' in request.json or
-        not 'patron_id' in request.json):
+    return_request = request.json['return']
+
+    if (return_request is None or
+        'book_id' not in return_request or
+        'patron_id' not in return_request):
         abort(400)
 
     try:
         cursor.execute('USE borrowdb;')
-        cursor.execute(f'DELETE FROM borrowed WHERE bookId = {request.json["book_id"]} AND patronId = {request.json["patron_id"]};')
+        cursor.execute(f'DELETE FROM borrowed WHERE bookId = {return_request["book_id"]} AND patronId = {return_request["patron_id"]};')
         my_database.commit()
     except Exception as e:
         print(repr(e))

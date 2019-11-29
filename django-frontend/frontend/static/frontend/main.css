@@ -6,7 +6,7 @@
 }
 
 .header {
-  background-color: #0277bd;
+  background-color: #264A60;
   color:white;
   font-size: 120%;
   margin: 0px;
@@ -17,6 +17,10 @@
   padding: 20px;
 }
 
+.image {
+  height: 40%;
+  width:  40%;
+}
 /* Book catalog styles */
 img.book {
   height: 15%;
@@ -28,24 +32,24 @@ table.book {
 }
 
 td.book {
-  width: 50%;
+  width: 40%;
 }
 
 /* Page menu hyperlink styles */
 a:link.menu {
-  background-color: #0277bd;
+  background-color: #264A60;
   color: white;
   text-decoration: none;
 }
 a:visited.menu {
-  background-color: #0277bd;
+  background-color: #264A60;
   color: white;
 }
 a:hover.menu {
   background-color: white;
-  color: #0277bd;
+  color: #264A60;
 }
 a:active.menu {
   background-color: #ffb74d;
-  color: #0277bd;
+  color: #264A60;
 }

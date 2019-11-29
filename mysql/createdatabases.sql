@@ -74,7 +74,8 @@ CREATE TABLE IF NOT EXISTS patrons
   id           INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
   firstName    VARCHAR(64) NOT NULL,
   lastName     VARCHAR(64) NOT NULL,
-  patronNum    CHAR(12)    NOT NULL UNIQUE,
+  patronNum    CHAR(16)    NOT NULL UNIQUE,
+  role         CHAR(8)     NOT NULL,
   INDEX (patronNum)
 );
 

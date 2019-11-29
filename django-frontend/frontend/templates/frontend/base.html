@@ -11,10 +11,24 @@
 <body>
     <div class="page">
         <div class="header">
-            <h1>The Library</h1>
-            <a class="menu" href="{% url 'frontend-catalog' %}">Home</a> | <a class="menu" href="{% url 'frontend-about' %}">About</a> | <a class="menu" href="#">Register</a> | <a class="menu" href="#">Administrator</a>
-        </div> 
-          {% block content %}{% endblock %}
+            <table>
+                <tr>
+                    <td>
+                        <h1>The Library</h1>
+                        <a class="menu" href="{% url 'frontend-catalog' %}">Catalog</a> |
+                        <a class="menu" href="{% url 'frontend-booklist' %}">My books</a> |
+                        <a class="menu" href="{% url 'frontend-about' %}">About</a> | 
+                        <a class="menu" href="{% url 'frontend-login' %}">Login</a> | 
+                        Administrator
+                    </td>
+                    <td>
+                        <img class="image" src="{% static 'frontend/library.png' %}" alt="Library">
+                    </td>
+                </tr>
+            </table>
+        </div>
+          {% block content %}
+          {% endblock content %}
     </div>
 </body>
 </html>

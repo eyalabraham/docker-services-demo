@@ -17,8 +17,8 @@ import time
 # MySQL database connector initialization
 # TODO: replace the sleep with a poll of the database service
 #
-time.sleep(20)
 print('[Note] Pausing for database initialization...')
+time.sleep(20)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--host', default='localhost')
@@ -70,7 +70,7 @@ def get_patron_by_id(patron_num):
     '''
     try:
         cursor.execute('USE patronsdb;')
-        cursor.execute(f'SELECT * FROM patrons WHERE patronNum = \'{patron_num}\';')
+        cursor.execute(f'SELECT id,firstName,lastName FROM patrons WHERE patronNum = \'{patron_num}\';')
         records = cursor.fetchall()
     except Exception as e:
         print(repr(e))
@@ -109,11 +109,9 @@ def test_patron(qualifier):
     a patron's first, last and registration ID.
     If a no matches or a single match is found return a valid JSON status response,
     if more than one match is founr signal an error.
-    The <qualifier> string format is: '<patron_first_name>?<patron_last_name>?<patron_membership_num>'
+    The <qualifier> string format is: '<patron_first_name>_<patron_last_name>_<patron_membership_num>'
     '''
     qualifiers = qualifier.split('_')
-    print(qualifier)
-    print(qualifiers)
     if len(qualifiers) != 3:
         abort(400)
 

@@ -9,11 +9,11 @@ urlpatterns = [
     # Library home page
     path('', views.catalog, name='frontend-catalog'),
     # Patron's borrowed book list
-    #path('books/', views.books, name='frontend-books'),
+    path('booklist/', views.booklist, name='frontend-booklist'),
     # Patron login
-    #path('login/', views.login, name='frontend-login'),
+    path('login/', views.login, name='frontend-login'),
     # Library about page
     path('about/', views.about, name='frontend-about'),
     # Library about page
-    path('error/', views.error, name='frontend-error'),
+    path('alert/', views.alert, name='frontend-alert'),
 ]

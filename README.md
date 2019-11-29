@@ -10,7 +10,11 @@ This project was designed with extreme simplicity in mind, specifically to be us
 - Make sure you have the latest Docker and docker-compose installed!
 - Pull the repository or download and extract the zip file from GitHub into a new directory on your system.
 - Copy the ```sample.env``` file into a new file named ```.env```
-- Build the images and start the app
+```
+cp sample.enc .enc
+```
+- Optional, change the MySQL root password in the ```sample.env``` file.
+- Build the images and start the app:
 ```
 docker-compose up --detach --build 
 ```
@@ -45,9 +49,8 @@ See the [design.md](design.md) file
 ## Dependencies
 - Python3 (version 3.6.8)
 - MySQL database server (version 5.7.27)
-- Nginx webserver (version 1.14.0 Ubuntu)
 
-__requirements.txt for Services__
+### requirements.txt for Services
 ```
 $ pip freeze
 certifi==2019.9.11
@@ -66,7 +69,7 @@ urllib3==1.25.7
 Werkzeug==0.16.0
 ```
 
-__requirements.txt for Frontend__
+### requirements.txt for Frontend
 ```
 $ pip freeze
 certifi==2019.9.11
@@ -83,7 +86,3 @@ urllib3==1.25.7
 [Django web framework](https://www.djangoproject.com/), [Flask web framework](https://www.fullstackpython.com/flask.html)
 [Python REST API CRUD Example using Flask and MySQL](https://www.roytuts.com/python-rest-api-crud-example-using-flask-and-mysql/), [MySQL Server on Ubuntu](https://support.rackspace.com/how-to/installing-mysql-server-on-ubuntu/), [Designing a RESTful API with Python and Flask](https://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask), [HTTP Status Codes](https://www.restapitutorial.com/httpstatuscodes.html)
 
-## TODOs
-1. Replace the ```sleep()``` functions in the backend services with a function that waits for the database connection to be ready with periodic retries. Specifically in the database related services.
-2. Would database connection recovery be necessary if database connection is dropped after it was started properly? If yes, then a recovery will be necessary in exception clauses of REST endpoints.
-3. ...more...

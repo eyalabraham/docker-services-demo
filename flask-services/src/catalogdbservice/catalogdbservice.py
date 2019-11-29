@@ -17,8 +17,8 @@ import time
 # MySQL database connector initialization
 # TODO: replace the sleep with a poll of the database service
 #
-time.sleep(20)
 print('[Note] Pausing for database initialization...')
+time.sleep(20)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--host', default='localhost')

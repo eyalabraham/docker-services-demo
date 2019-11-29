@@ -1,6 +1,8 @@
 {% extends "frontend/base.html" %}
 {% block content %}
-    <p><b>About the library project</b></p>
-    A Microservices, Containers, and Persistent Volume storage demo. This project contains a microservices application. The application is a very (very) simple web-based book lending app for a fictitious library. The project is intended to demonstrate a <a href="https://microservices.io/" target="_blank">Microservices architecture</a> within a Containerized solution using <a href="https://www.docker.com/" target="_blank">Docker Containers</a> and <a href="https://kubernetes.io/" target="_blank">Kubernetes</a> orchestration.
-    The "production" system will be deployed with <a href="https://docs.docker.com/storage/" target="_blank">persistent volumes</a> utilizing the <a href="https://beta.docs.docker.com/ee/ucp/kubernetes/use-csi/" target="_blank">CSI driver</a>, in order to demonstrate the ability to persist database data.
+    <h3>About the library project</h3>
+    <p>A Microservices, Containers, and Persistent Volume storage demo. This project contains a microservices application. The application is a very (very) simple web-based book lending app for a fictitious library. The project is intended to demonstrate a <a href="https://microservices.io/" target="_blank">Microservices architecture</a> within a Containerized solution using <a href="https://www.docker.com/" target="_blank">Docker Containers</a> and <a href="https://kubernetes.io/" target="_blank">Kubernetes</a> orchestration.</p>
+    <p>The production system can be deployed on your laptop. We also plan deploy it with <a href="https://kubernetes.io/" target="_blank">Kubernetes</a> and <a href="https://docs.docker.com/storage/" target="_blank">persistent volumes</a> utilizing the <a href="https://beta.docs.docker.com/ee/ucp/kubernetes/use-csi/" target="_blank">CSI driver</a>, in order to demonstrate the ability to persist database data.</p>
+    <p>The project's GitHub <a href="https://github.com/eyalabraham/docker-services-demo" target="_blank">repository</a></p>
+    <p>The project's Docker Hub <a href="https://hub.docker.com/u/eyalabraham" target="_blank">image repository</a></p>
 {% endblock content %}
