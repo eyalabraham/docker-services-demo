@@ -14,11 +14,13 @@ This project was designed with extreme simplicity in mind, specifically to be us
 cp sample.enc .enc
 ```
 - Optional, change the MySQL root password in the ```sample.env``` file.
-- Build the images and start the app:
+- Build the images and bring up the app services:
 ```
 docker-compose up --detach --build 
 ```
+- Allow all services to start (there is hard-coded delay of 20sec to allow the database service time to initialize)
 - Point your web browset at: http://0.0.0.0:8000/ to access the library's web page.
+- Use the canned set of users in the ```mysql/patrons_demo.csv``` file to log into the library and borrow books
 - Display container logs during run time and watch activity when selecting web page links
 ```
 docker-compose logs --follow

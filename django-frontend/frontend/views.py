@@ -223,8 +223,6 @@ def login(request):
                     return_page = request.session.get('previous_page', 'frontend-login')
                     return redirect(reverse(return_page))
                 else:
-                    #form = PatronLoginForm()
-
                     context = {
                         'form': {
                             'need_login': 'yes',
