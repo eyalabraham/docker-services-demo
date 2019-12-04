@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: docker-demo-config
+data:
+  IMAGE_TAG: "0.2"
+  LOCAL_MYSQL_ROOT_PASSWORD: rootpassword
+  LOCAL_HOST: 0.0.0.0

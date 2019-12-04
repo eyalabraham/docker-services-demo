@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalogdb
+  labels:
+    app: docker-demo
+    area: rest-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docker-demo
+      tier: backend-catalog-rest
+  template:
+    metadata:
+      labels:
+        app: docker-demo
+        tier: backend-catalog-rest
+        area: rest-service
+    spec:
+      containers:
+      - name: catalogdb
+        image: 'catalog_db:0.2'
+        args:
+        - --host
+        - "0.0.0.0"
+        - --db
+        - sql-backend
+        ports:
+        - containerPort: 5001
+      restartPolicy: Always

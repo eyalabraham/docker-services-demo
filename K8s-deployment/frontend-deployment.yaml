@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-frontend
+  labels:
+    app: docker-demo
+    area: web-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docker-demo
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: docker-demo
+        tier: frontend
+        area: web-server
+    spec:
+      containers:
+      - name: web-frontend
+        image: 'web_frontend:0.2'
+        args: ["0.0.0.0:8000"]
+        env:
+        - name: CATALOG_DB_SERVICE
+          value: catalog-rest
+        - name: BORROW_DB_SERVICE
+          value: borrowing-rest
+        - name: PATRON_DB_SERVICE
+          value: patrons-rest
+        - name: BORROW_LOGIC_SERVICE
+          value: liblogic-rest
+        ports:
+        - containerPort: 8000
+      restartPolicy: Always

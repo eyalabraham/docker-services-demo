@@ -7,6 +7,7 @@ This project was designed with extreme simplicity in mind, specifically to be us
 **Use appropriately and have fun!**
 
 ## Using the demo
+### docker-compose deployment
 - Make sure you have the latest Docker and docker-compose installed!
 - Pull the repository or download and extract the zip file from GitHub into a new directory on your system.
 - Copy the ```sample.env``` file into a new file named ```.env```
@@ -29,6 +30,9 @@ docker-compose logs --follow
 ```
 docker-compose down
 ```
+
+### Kubernetes deployment
+See [README.md](K8s-deployment/README.md) in the ```K8s-deployment``` directory.
 
 ## Testing
 Wherever possible, internal ports where exposed to use as test points for the REST API endpoints. To test intermediate points within the application use the ```curl``` CLI command to "inject" REST requests directly into the running services. Suggested tests are listed in the TESTME.md files found in each of the services' directories. See the ```docker-compose.yml``` file for local port numbers under the ```ports:``` tag for each service.

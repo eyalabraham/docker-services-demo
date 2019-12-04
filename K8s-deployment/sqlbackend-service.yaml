@@ -1,0 +1,23 @@
+# This is the MySQL backend database service YAML.
+# I'll use this with some annotaitons to document the structure of the service.
+apiVersion: v1
+kind: Service
+metadata:
+  # The [name] field is the field that will be the DNS lookup name for
+  # any other pod that wants to connect to the database pod's service
+  name: sql-backend
+  labels:
+    app: docker-demo
+    area: backend
+spec:
+  type: ClusterIP
+  # This app and tier pair will match the sql-backend deployment selector
+  # and associate this service with the backend database.
+  # The Service routes traffic to Pods that have the labels app=docker-demo and
+  # tier=database
+  selector:
+    app: docker-demo
+    tier: database
+  ports:
+  - port: 3306
+    targetPort: 3306

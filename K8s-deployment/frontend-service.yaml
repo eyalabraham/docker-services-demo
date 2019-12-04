@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  labels:
+    app: docker-demo
+    area: web-server
+spec:
+  # This service type allows assignment of local IP
+  # that is external to the pod, in this case local host.
+  # Other types: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+  type: LoadBalancer
+  selector:
+    app: docker-demo
+    tier: frontend
+  ports:
+      # Requests can be made from outside the cluster to the node’s IP
+      # address and service’s [nodePort], forwarded to the service’s [port],
+      # and received on the [targetPort] by the pod
+    - protocol: "TCP"
+      port: 8000
+      targetPort: 8000
+      # Use [nodePort] if using an external IP to the cluster
+      #nodePort: 30000

@@ -1,0 +1,41 @@
+# This is the MySQL backend database deployment YAML.
+# I'll use this with some annotaitons to document the structure of the deployment.
+apiVersion: apps/v1
+kind: Deployment
+# This metadata defines the deployment and gives is a name and label.
+# The label can be used to select/filter '... -l app=docker-dem0'
+# this deployment from others that might be running on the cluster.
+# This allow directing commands such as 'get' or 'delete' etc at the set
+# of objects.
+metadata:
+  name: sql-backend
+  labels:
+    app: docker-demo
+    area: backend
+# The deployment's spec defines replicas and defines which
+# pods it will apply to, in this case pods that match label 'docker-demo'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docker-demo
+      tier: database
+# This is the pod definition which runs the container image
+  template:
+    metadata:
+      labels:
+        app: docker-demo
+        tier: database
+        area: backend
+    spec:
+      containers:
+      - name: sql-backend
+        image: 'sql_backend:0.2'
+        args:
+        - --skip-ssl
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: 'rootpassword'
+        ports:
+        - containerPort: 3306
+      restartPolicy: Always

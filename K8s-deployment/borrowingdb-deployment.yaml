@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: borrowingdb
+  labels:
+    app: docker-demo
+    area: rest-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docker-demo
+      tier: backend-borrowing-rest
+  template:
+    metadata:
+      labels:
+        app: docker-demo
+        tier: backend-borrowing-rest
+        area: rest-service
+    spec:
+      containers:
+      - name: borrowingdb
+        image: 'borrowing_db:0.2'
+        args:
+        - --host
+        - "0.0.0.0"
+        - --db
+        - sql-backend
+        ports:
+        - containerPort: 5002
+      restartPolicy: Always

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: patronsdb
+  labels:
+    app: docker-demo
+    area: rest-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docker-demo
+      tier: backend-patrons-rest
+  template:
+    metadata:
+      labels:
+        app: docker-demo
+        tier: backend-patrons-rest
+        area: rest-service
+    spec:
+      containers:
+      - name: patronsdb
+        image: 'patrons_db:0.2'
+        args:
+        - --host
+        - "0.0.0.0"
+        - --db
+        - sql-backend
+        ports:
+        - containerPort: 5003
+      restartPolicy: Always
