@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: borrowingdb
-        image: 'borrowing_db:0.2'
+        image: 'eyalabraham/borrowing_db:0.2'
         args:
         - --host
         - "0.0.0.0"

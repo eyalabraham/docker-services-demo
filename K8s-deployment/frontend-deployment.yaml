@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: web-frontend
-        image: 'web_frontend:0.2'
+        image: 'eyalabraham/web_frontend:0.2'
         args: ["0.0.0.0:8000"]
         env:
         - name: CATALOG_DB_SERVICE

@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: catalogdb
-        image: 'catalog_db:0.2'
+        image: 'eyalabraham/catalog_db:0.2'
         args:
         - --host
         - "0.0.0.0"
