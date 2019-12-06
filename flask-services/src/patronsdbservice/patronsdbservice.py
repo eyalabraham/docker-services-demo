@@ -2,6 +2,9 @@
 Patrons' database service.
 11/13/19    Created
 '''
+import argparse
+import time
+
 from flask import Flask
 from flask import jsonify
 from flask import abort
@@ -9,38 +12,7 @@ from flask import make_response
 from flask import request
 
 from mysql.connector import connect
-
-import argparse
-import time
-
-#
-# MySQL database connector initialization
-# TODO: replace the sleep with a poll of the database service
-#
-print('[Note] Pausing for database initialization...')
-time.sleep(20)
-
-parser = argparse.ArgumentParser()
-parser.add_argument('--host', default='localhost')
-parser.add_argument('--db', default='localhost')
-args = parser.parse_args()
-default_host = args.host
-database_service = args.db
-print(f'[Note] Using host=\'{default_host}\' mysql=\'{database_service}\'')
-
-try:
-    my_database = connect(
-        host=database_service,
-        database='patronsdb',
-        user='rest',
-        password='password',
-        auth_plugin='mysql_native_password')
-    cursor = my_database.cursor()
-    print('[Note] successfully connected to MySQL')
-except Exception as e:
-    print(repr(e))  # In order to avoid unicode character output issues
-    print('Database \'patronsdb\' initialization failed')
-    exit(1)
+from mysql.connector import Error
 
 #
 # Flask REST handlers
@@ -53,6 +25,8 @@ def get_all_patrons():
     Return all records of patron names from database.
     '''
     try:
+        my_db = connect_retry(**dbconfig)
+        cursor = my_db.cursor()
         cursor.execute('USE patronsdb;')
         cursor.execute('SELECT * FROM patrons;')
         records = cursor.fetchall()
@@ -60,8 +34,16 @@ def get_all_patrons():
         print(repr(e))
         print('Database \'patronsdb.patrons\' SELECT failed in: get_all_patrons()')
         abort(500)
+    else:
+        row_count = cursor.rowcount
+        if my_db.is_connected():
+            cursor.close()
+            my_db.close()
 
-    return jsonify({'patrons': records})
+    if row_count > 0:
+        return jsonify({'patron': records})
+    else:
+        abort(404)
 
 @app.route('/patdb/pnum/<patron_num>', methods=['GET'])
 def get_patron_by_id(patron_num):
@@ -69,6 +51,8 @@ def get_patron_by_id(patron_num):
     Return a specific patron by its library ID (12 character string) from the patrons' database.
     '''
     try:
+        my_db = connect_retry(**dbconfig)
+        cursor = my_db.cursor()
         cursor.execute('USE patronsdb;')
         cursor.execute(f'SELECT id,firstName,lastName FROM patrons WHERE patronNum = \'{patron_num}\';')
         records = cursor.fetchall()
@@ -76,8 +60,13 @@ def get_patron_by_id(patron_num):
         print(repr(e))
         print('Database \'patronsdb.patrons\' SELECT failed in: get_patron_by_id()')
         abort(500)
+    else:
+        row_count = cursor.rowcount
+        if my_db.is_connected():
+            cursor.close()
+            my_db.close()
 
-    if cursor.rowcount > 0:
+    if row_count > 0:
         return jsonify({'patron': records})
     else:
         abort(404)
@@ -89,6 +78,8 @@ def get_patron_by_name(name):
     and return their records.
     '''
     try:
+        my_db = connect_retry(**dbconfig)
+        cursor = my_db.cursor()
         cursor.execute('USE patronsdb;')
         cursor.execute(f'SELECT * FROM patrons WHERE firstName LIKE \'%{name}%\' OR lastName LIKE \'%{name}%\';')
         records = cursor.fetchall()
@@ -96,8 +87,13 @@ def get_patron_by_name(name):
         print(repr(e))
         print('Database \'patronsdb.patrons\' SELECT failed in: get_patron_by_name()')
         abort(500)
+    else:
+        row_count = cursor.rowcount
+        if my_db.is_connected():
+            cursor.close()
+            my_db.close()
 
-    if cursor.rowcount > 0:
+    if row_count > 0:
         return jsonify({'patrons': records})
     else:
         abort(404)
@@ -116,6 +112,8 @@ def test_patron(qualifier):
         abort(400)
 
     try:
+        my_db = connect_retry(**dbconfig)
+        cursor = my_db.cursor()
         cursor.execute('USE patronsdb;')
         cursor.execute(f'SELECT * FROM patrons WHERE firstName = \'{qualifiers[0]}\' AND  \
                                                      lastName  = \'{qualifiers[1]}\' AND  \
@@ -125,11 +123,59 @@ def test_patron(qualifier):
         print(repr(e))
         print('Database \'patronsdb.patrons\' SELECT failed in: test_patron()')
         abort(500)
+    else:
+        row_count = cursor.rowcount
+        if my_db.is_connected():
+            cursor.close()
+            my_db.close()
 
-    if cursor.rowcount == 1:
+    if row_count == 1:
         return jsonify({'patron': True})
     else:
         return jsonify({'patron': False})
+
+#
+# Database connection retry function
+#
+def connect_retry(user, password, database,
+                  back_off_count=4, host='localhost', port=3306,
+                  auth_plugin='mysql_native_password'):
+    '''
+    Initialize a database connection with connection parameters,
+    but retry connection upon failure using a backoff count and delay.
+    Use connect_retry() instead of connect() with MySQL.
+    '''
+    if back_off_count > 4:
+        back_off_count = 4
+
+    back_off_delay = 1
+
+    for retry_count in range(back_off_count + 1):
+        try:
+            db_connection = connect(
+                host=host,
+                port=port,
+                database=database,
+                user=user,
+                password=password,
+                auth_plugin=auth_plugin)
+
+        except Error as err:
+            print(err, end='.')
+            if retry_count == back_off_count:
+                print(' Giving up.')
+                continue
+            # Power of 2 wait time: 1, 2, 4, 8 seconds
+            time.sleep(back_off_delay)
+            print(f' Retrying {retry_count+1}/{back_off_count}')
+            back_off_delay = back_off_delay * 2
+
+        else:
+            break
+    else:
+        return None
+
+    return db_connection
 
 #
 # TODO Administrative function to modify the patrons' database
@@ -166,5 +212,22 @@ def internal_error(error):
 # Startup
 #
 if __name__ == '__main__':
+    # Initialize module from command line parameters
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--host', default='localhost')
+    parser.add_argument('--db', default='localhost')
+    args = parser.parse_args()
+    default_host = args.host
+    database_service = args.db
+    print(f'[Note] Using host=\'{default_host}\' mysql=\'{database_service}\'')
+
+    dbconfig = {
+        'host':         database_service,
+        'database':     'patronsdb',
+        'user':         'rest',
+        'password':     'password',
+        'auth_plugin':  'mysql_native_password',   
+    }
+
     app.run(debug=True, host=default_host, port=5003)
 

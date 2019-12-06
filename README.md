@@ -2,9 +2,7 @@
 This project contains a microservices architecture application. The application is a very (very) simple web-based book lending app for a fictitious library. The project is intended as a demonstration for a [Microservices architecture](https://microservices.io/) within a Containerized solution using [Docker Containers](https://www.docker.com/) and [Kubernetes](https://kubernetes.io/) orchestration.
 The end goal is to deploy the demo with [persistent volumes](https://docs.docker.com/storage/) utilizing a [CSI driver](https://beta.docs.docker.com/ee/ucp/kubernetes/use-csi/), in order to demonstrate the ability to persist database data on an external block or file storage system.
 
-## Important note!
-This project was designed with extreme simplicity in mind, specifically to be used as a demo or a teaching/learning tool. Many liberties were taken with the architecture and the design in order to eliminate complexities such as security and scalability. This is not a secure, production quality, application but rather a learning or teaching tool for Microservices and Container technology; possible also a reasonably good starting point for a beginner or unexperienced programmer.
-**Use appropriately and have fun!**
+> **Note:** this project was designed with extreme simplicity in mind, specifically to be used as a demo or a teaching/learning tool. Many liberties were taken with the architecture and the design in order to eliminate complexities such as security and scalability. This is not a secure, production quality, application but rather a learning or teaching tool for Microservices and Container technology; possibly also a reasonable starting point for a beginner or unexperienced programmer.
 
 ## Using the demo
 ### docker-compose deployment

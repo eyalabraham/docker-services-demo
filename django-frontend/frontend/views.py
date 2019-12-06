@@ -73,7 +73,7 @@ def catalog(request):
 
         return redirect(reverse('frontend-login'))
 
-    # If not a boorow request then show the book catalog
+    # If not a borrow request then show the book catalog
     http_result, response = RestCall(catalog_service, 5001).get('/catdb')
     if http_result != 200:
         request.session['alert_text'] = f'Catalog database REST service error (HTTP {http_result})'
