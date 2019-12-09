@@ -5,26 +5,28 @@ The end goal is to deploy the demo with [persistent volumes](https://docs.docker
 > **Note:** this project was designed with extreme simplicity in mind, specifically to be used as a demo or a teaching/learning tool. Many liberties were taken with the architecture and the design in order to eliminate complexities such as security and scalability. This is not a secure, production quality, application but rather a learning or teaching tool for Microservices and Container technology; possibly also a reasonable starting point for a beginner or unexperienced programmer.
 
 ## Using the demo
+There are two modes to deploy the demo on your laptop. The first using docker-compose and the second using Kubenetes. In order to deploy, first follow the two stesp below, then follow the reelevant section for the method you want to try.
+1. Make sure you have the latest Docker and docker-compose installed!
+2. Pull the repository or download and extract the zip file from GitHub into a new directory on your system.
+
 ### docker-compose deployment
-- Make sure you have the latest Docker and docker-compose installed!
-- Pull the repository or download and extract the zip file from GitHub into a new directory on your system.
-- Copy the ```sample.env``` file into a new file named ```.env```
+1. Copy the ```sample.env``` file into a new file named ```.env```
 ```
 cp sample.enc .enc
 ```
-- Optional, change the MySQL root password in the ```sample.env``` file.
-- Build the images and bring up the app services:
+2. Optional, change the MySQL root password in the ```sample.env``` file.
+3. Build the images and bring up the app services:
 ```
 docker-compose up --detach --build 
 ```
-- Allow all services to start (there is hard-coded delay of 20sec to allow the database service time to initialize)
-- Point your web browset at: http://0.0.0.0:8000/ to access the library's web page.
-- Use the canned set of users in the ```mysql/patrons_demo.csv``` file to log into the library and borrow books
-- Display container logs during run time and watch activity when selecting web page links
+4. Allow all services to start (check with ```docker ps``` uder the STATUS table heading)
+5. Point your web browset at: http://0.0.0.0:8000/ to access the library's web page.
+6. Use the canned set of users in the ```mysql/patrons_demo.csv``` file to log into the library and borrow books
+7. Display container logs during run time and watch activity when selecting web page links
 ```
 docker-compose logs --follow
 ```
-- Shutdown and clean up
+8. Shutdown and clean up
 ```
 docker-compose down
 ```
