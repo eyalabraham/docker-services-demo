@@ -5,7 +5,7 @@ The end goal is to deploy the demo with [persistent volumes](https://docs.docker
 > **Note:** this project was designed with extreme simplicity in mind, specifically to be used as a demo or a teaching/learning tool. Many liberties were taken with the architecture and the design in order to eliminate complexities such as security and scalability. This is not a secure, production quality, application but rather a learning or teaching tool for Microservices and Container technology; possibly also a reasonable starting point for a beginner or unexperienced programmer.
 
 ## Using the demo
-There are two modes to deploy the demo on your laptop. The first using docker-compose and the second using Kubenetes. In order to deploy, first follow the two stesp below, then follow the reelevant section for the method you want to try.
+The demo can be deployed on your laptop or on a Kubernetes cluster. For personal laptop use there are two modes to deploy the demo. The first using docker-compose and the second using Kubernetes availbale through a Docker Desktop setup. In order to deploy, first follow the two steps below, then follow the relevant section for the method you want to try.
 1. Make sure you have the latest Docker and docker-compose installed!
 2. Pull the repository or download and extract the zip file from GitHub into a new directory on your system.
 
@@ -19,8 +19,8 @@ cp sample.enc .enc
 ```
 docker-compose up --detach --build 
 ```
-4. Allow all services to start (check with ```docker ps``` uder the STATUS table heading)
-5. Point your web browset at: http://0.0.0.0:8000/ to access the library's web page.
+4. Allow all services to start (check with ```docker ps``` under the STATUS table heading)
+5. Point your web browser at: http://0.0.0.0:8000/ to access the library's web page.
 6. Use the canned set of users in the ```mysql/patrons_demo.csv``` file to log into the library and borrow books
 7. Display container logs during run time and watch activity when selecting web page links
 ```

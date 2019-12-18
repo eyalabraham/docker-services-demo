@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: library-logic
-        image: 'eyalabraham/lib_logic:0.3'
+        image: 'eyalabraham/lib_logic:0.4'
         args:
         - --host
         - "0.0.0.0"

@@ -9,7 +9,7 @@ spec:
   # This service type allows assignment of local IP
   # that is external to the pod, in this case local host.
   # Other types: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: docker-demo
     tier: frontend
@@ -20,5 +20,7 @@ spec:
     - protocol: "TCP"
       port: 8000
       targetPort: 8000
-      # Use [nodePort] if using an external IP to the cluster
-      #nodePort: 30000
+      # Use [nodePort] if using NodePort type as an IP for the front end service 
+      # The service will appear in the node's IP and nodePort port number
+      # If nodePort is not spcified a port from ramge 30000 to 32767 will be assigned
+      nodePort: 30080

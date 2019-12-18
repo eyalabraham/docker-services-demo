@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: sql-backend
-        image: 'eyalabraham/sql_backend:0.3'
+        image: 'eyalabraham/sql_backend:0.4'
         args:
         - --skip-ssl
         env:
