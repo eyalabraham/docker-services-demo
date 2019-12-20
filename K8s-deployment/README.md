@@ -1,9 +1,22 @@
 # Kubernetes deployment
 
-This directory includes YAML files needed for a kubernetes deployment. To deploy use ```kubectl apply -f .```. After the deployment process completes wait for the Pods to initialized and then use your browser to view the projects.
+This directory includes YAML files needed for a kubernetes deployment. To deploy use
+
+```
+kubectl apply -f .
+```
+
+After the deployment process completes wait for the Pods to initialized and then use your browser to view the projects.
+
 > If you are running the setup for the first time then images will be pulled from a public repository on [docker hub](https://hub.docker.com/u/eyalabraham).
 > You must wait for all images to be pulled and for all pods to be in the ```Running``` state.
 > You can check pod status by running ```kubectl get pods -l app=docker-demo```
+
+To stop the running deployment use:
+
+```
+kubectl delete deployments, services,pods -l app=docker-demo
+```
 
 ## Laptop vs Kubernetes cluster deployment
 
