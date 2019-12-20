@@ -57,7 +57,7 @@ To login a patron, select a patron from the table below and enter the details in
 As you probably noticed, there is no way for a patron to return books. In order to keep the demo application as simple as possible, we provided an administration page that implements a demo reset functionality. By clicking the Reset demo button on this page you will remove all borrowed books from all patrons, log out any logged in patron, and return the demo to its initial state.  
 This functionality uses the existing REST API services, and implementing a librarian-like administration function is left to you as an exercise :-)
 
-![Patron login page](image/login.png)
+![Patron login page](image/administrator.png)
 
 ## Docker and Kubernetes command line
 
