@@ -84,7 +84,7 @@ $ docker image ls eyalabraham/*
 
 The output should look something like this.
 
-![Docker image](image/docker-images.png)
+![Docker image](image/docker-imags.png)
 
 > You might see different values under the TAG column. These values will be updated when new revisions of this demo are published.
 

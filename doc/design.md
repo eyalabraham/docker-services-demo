@@ -6,7 +6,7 @@
 - Web front-end
 
 ## Database services
-Three independant database services, and one MySQL database. Schema and REST interface follows.
+Three independent database services, and one MySQL database. Schema and REST interface follows.
 
 ### Patron registry database
 #### Service
@@ -56,7 +56,7 @@ Get patron by unique number
     [ [id, firstName, lastName, role] ]
 }
 ```
-Test existance of parton qualifier
+Test existence of patron qualifier
 ```
 {
   "patron": <true | false>
@@ -77,7 +77,7 @@ HTTP 500
 
 ### Catalog database
 #### Service
-This database holds the list of books available in the library. The database stored the book's title and author, as well as a URL to a thumbnail picture. Every book in the library has the max count of available copies. This count will be compared against the lended count of a book to determine if any are available for further lending.
+This database holds the list of books available in the library. The database stored the book's title and author, as well as a URL to a thumbnail picture. Every book in the library has the max count of available copies. This count will be compared against the lend count of a book to determine if any are available for further lending.
 This service is bound to port 5001.
 
 #### REST end-points
@@ -284,14 +284,15 @@ TODO: not implemented
 ## Web access services
 ### Frontend
 The web frontend is the access method for library patrons. It provides a book catalog view and a book borrowing interface. The front end is built using a Django web framework and includes:
-- Home page dislaying library book catalog with a 'Borrow' botton/link
+- Home page displaying library book catalog with a 'Borrow' button/link
 - Patron login for borrowing or displaying patron's borrowed books. The page will ask for patron's first and last name, and patron's library ID.
-- Patron's borrowed book list. Displayed afer successful borrowing, or when requested through link on the catalog page.
+- Patron's borrowed book list. Displayed after successful borrowing, or when requested through link on the catalog page.
 
 The front end service will communicate with the catalog services, the patron registry service, and the library borrowing logic service through their respective RSET interfaces.
 
 ### Administration
-TODO: not implemented
+
+Implemented as a simple page in the web front-end service. The functionality is currently to remove all borrowed books from the 'borrowed' table in the 'borrowdb' database.
 
 ## Access infrastructure
 TODO: not implemented
