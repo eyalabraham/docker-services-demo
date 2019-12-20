@@ -59,7 +59,7 @@ def catalog(request):
             }
 
             http_result, borrow_response = RestCall(liblogic_service, 5004).post('/borrow', post_object)
-            if http_result != 201:
+            if http_result != 200 and http_result != 201:
                 request.session['alert_text'] = f'Library borrowing and checkout REST service error (HTTP {http_result})'
                 request.session['alert_color'] = 'red'
                 return redirect('frontend-alert')

@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: patronsdb
-        image: 'eyalabraham/patrons_db:0.5'
+        image: 'eyalabraham/patrons_db:0.6'
         args:
         - --host
         - "0.0.0.0"
