@@ -16,4 +16,6 @@ urlpatterns = [
     path('about/', views.about, name='frontend-about'),
     # Library about page
     path('alert/', views.alert, name='frontend-alert'),
+    # Library administrator page
+    path('administrator/', views.administrator, name='frontend-administrator')
 ]

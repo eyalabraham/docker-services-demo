@@ -30,7 +30,7 @@ def catalog(request):
     Library home page, the book catalog.
     Queries the catalog and the borrowing services to determine and display book catalog,
     and book inventory availability.
-    The page is also the endpoint for a boorow POST request.
+    The page is also the endpoint for a borrow POST request.
     '''
     session_id = request.session.get('session_id', 'None')
     request.session['previous_page'] = 'frontend-catalog'
@@ -59,7 +59,7 @@ def catalog(request):
             }
 
             http_result, borrow_response = RestCall(liblogic_service, 5004).post('/borrow', post_object)
-            if http_result != 200 and http_result != 201:
+            if http_result != 201:
                 request.session['alert_text'] = f'Library borrowing and checkout REST service error (HTTP {http_result})'
                 request.session['alert_color'] = 'red'
                 return redirect('frontend-alert')
@@ -200,7 +200,7 @@ def login(request):
     if request.method == 'POST':
         form = PatronLoginForm(request.POST)
         if form.is_valid():
-            # Validate the user through the partons' database
+            # Validate the user through the patrons' database
             form_user_first_name = form.cleaned_data['user_first_name']
             form_user_last_name = form.cleaned_data['user_last_name']
             form_user_lib_id = form.cleaned_data['user_lib_id']
@@ -254,8 +254,8 @@ def about(request):
 def alert(request):
     '''
     This page displays alerts.
-    Alert text and color should be stransferred using the session object, before calling
-    a redirect() to the 'frontend-aler' page name
+    Alert text and color should be transferred using the session object, before calling
+    a redirect() to the 'frontend-alert' page name
     '''
     context = {
         'alert': {
@@ -268,3 +268,53 @@ def alert(request):
     request.session['alert_color'] = 'black'
 
     return render(request, 'frontend/alert.html', context)
+
+def administrator(request):
+    '''
+    This page displays the administrator access page.
+    The page presents a button that allows the demo user to reset the demo
+    by clearing the 'borrowed' books database table and logging out any logged in user.
+    '''
+
+    # Handle the demo reset button POST request
+    if request.method == 'POST':
+        # Get a list of borrow records
+        http_result, borrowed_book_list = RestCall(borrowing_service, 5002).get('/borrowdb')
+        if http_result != 200:
+            request.session['alert_text'] = f'Borrowing database REST service error (HTTP {http_result})'
+            request.session['alert_color'] = 'red'
+            return redirect('frontend-alert')
+
+        # Walk list and delete records one by one.
+        # This may not be efficient as 'TABLE TRUNCATE' but saves modifying the REST endpoint code
+        borrowed_book_count = 0
+        if borrowed_book_list['transactions'] is not None:
+            borrowed_book_count = len(borrowed_book_list['transactions'])
+            for entry in borrowed_book_list['transactions']:                
+                delete_object = {
+                    'return': {
+                        'book_id': entry[1],
+                        'patron_id':entry[2],
+                    }
+                }
+
+                http_result, delete_response = RestCall(borrowing_service, 5002).delete('/borrowdb', delete_object)
+                if http_result != 201:
+                    request.session['alert_text'] = f'Borrowing database REST service error (HTTP {http_result})'
+                    request.session['alert_color'] = 'red'
+                    return redirect('frontend-alert')
+
+        # Log out the user if one is logged in
+        # If the user is already logged in redirect with alert and don't allow another login
+        session_id = request.session.get('session_id', 'None')
+        if patron.is_loggedin(session_id):
+            patron.logout(session_id)
+            request.session.flush()
+
+        # Acknowledge the reset request
+        request.session['alert_text'] = f'The demo session was reset ({borrowed_book_count} borrow records were deleted).'
+        request.session['alert_color'] = 'black'
+        return redirect('frontend-alert')
+
+    # Render the Administrator page
+    return render(request, 'frontend/administrator.html')

@@ -1,0 +1,54 @@
+{% extends "frontend/base.html" %}
+{% block content %}
+    <div style="color:white;background-color:red">
+        <h3>Demo reset page</h3>
+    </div>
+    <p>
+        Use this page to reset the demo by clicking the reset button at the bottom of this page.
+        This action will remove all database records from the 'borrowed' table of the 'borrowdb' database, and log out any logged in patron.
+    </p>
+    <p>
+        After resetting the demo you can continue to use the application. The list of patrons you can use to exercise the application is loaded in the 'patrons' tables in the 'patronsdb' database. The list includes:
+        <table class="patron">
+            <tr>
+                <th class="patron">First name</th>
+                <th class="patron">Last name</th>
+                <th class="patron">ID</th>
+            </tr>
+            <tr>
+                <td class="patron">Pete</td>
+                <td class="patron">Dymond</td>
+                <td class="patron">BUFFALOBILL1</td>
+            </tr>
+            <tr>
+                <td class="patron">Laine</td>
+                <td class="patron">Scheidegger</td>
+                <td class="patron">DEADBEEF2222</td>
+            </tr>
+            <tr>
+                <td class="patron">Reid</td>
+                <td class="patron">Koffler</td>
+                <td class="patron">BUMBLEBEE333</td>
+            </tr>
+            <tr>
+                <td class="patron">Wilfred</td>
+                <td class="patron">Hatter</td>
+                <td class="patron">SKYWALKER444</td>
+            </tr>
+            <tr>
+                <td class="patron">Lorelei</td>
+                <td class="patron">Cowher</td>
+                <td class="patron">HANSOLO55555</td>
+            </tr>
+            <tr>
+                <td class="patron">Anastacia</td>
+                <td class="patron">Coram</td>
+                <td class="patron">DARTHVADER66</td>
+            </tr>
+        </table>
+    </p>
+    <form action="{% url 'frontend-administrator' %}" method="post">
+        {% csrf_token %}
+        <button style="color:red" type="submit" name="reset" value="1">Reset demo</button>
+    </form>
+{% endblock content %}

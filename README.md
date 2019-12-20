@@ -6,13 +6,13 @@ The end goal is to deploy the demo with [persistent volumes](https://docs.docker
 
 ## Using the demo
 The demo can be deployed on your laptop or on a Kubernetes cluster. For personal laptop use there are two modes to deploy the demo. The first using docker-compose and the second using Kubernetes availbale through a Docker Desktop setup. In order to deploy, first follow the two steps below, then follow the relevant section for the method you want to try.
-1. Make sure you have the latest Docker and docker-compose installed!
+1. Install Docker and Kubernetes desktop, for [Windows](https://www.docker.com/blog/docker-windows-desktop-now-kubernetes/) or [macOS](https://thenewstack.io/how-to-install-docker-desktop-with-kubernetes-on-macos/)
 2. Pull the repository or download and extract the zip file from GitHub into a new directory on your system.
 
 ### docker-compose deployment
 1. Copy the ```sample.env``` file into a new file named ```.env```
 ```
-cp sample.enc .enc
+cp sample.env .env
 ```
 2. Optional, change the MySQL root password in the ```sample.env``` file.
 3. Build the images and bring up the app services:
@@ -20,7 +20,7 @@ cp sample.enc .enc
 docker-compose up --detach --build 
 ```
 4. Allow all services to start (check with ```docker ps``` under the STATUS table heading)
-5. Point your web browser at: http://0.0.0.0:8000/ to access the library's web page.
+5. Point your web browser at: http://localhost:8000/ to access the library's web page.
 6. Use the canned set of users in the ```mysql/patrons_demo.csv``` file to log into the library and borrow books
 7. Display container logs during run time and watch activity when selecting web page links
 ```
@@ -34,8 +34,9 @@ docker-compose down
 ### Kubernetes deployment
 See [README.md](K8s-deployment/README.md) in the ```K8s-deployment``` directory.
 
-## Testing
-Wherever possible, internal ports where exposed to use as test points for the REST API endpoints. To test intermediate points within the application use the ```curl``` CLI command to "inject" REST requests directly into the running services. Suggested tests are listed in the TESTME.md files found in each of the services' directories. See the ```docker-compose.yml``` file for local port numbers under the ```ports:``` tag for each service.
+## Demoing and testing
+A detailed demo script is available for you to use as a guide to familiarize with the application and basic underlying functions. [The demo script](doc/how-to-use-the-demo-app.md) includes a step by step description including screen shots.  
+Wherever possible, internal ports where exposed to use as test points for the REST API endpoints. To test intermediate points within the application deploy the application with ```docker-compose``` and use the ```curl``` CLI command to "inject" REST requests directly into the running services. Suggested tests are listed in the TESTME.md files found in each of the services' directories. Refer to the [design.md](doc/design.md) files for RESTapi interface details. See the ```docker-compose.yml``` file for local port numbers under the ```ports:``` tag for each service.
 
 ## Services architecture
 
@@ -50,7 +51,7 @@ Wherever possible, internal ports where exposed to use as test points for the RE
 | Borrowing service    | Python/Flask  | Library book borrowing logic                         |
 
 ## REST interface definitions and Microservices
-See the [design.md](design.md) file
+See the [design.md](doc/design.md) file
 
 ## Dependencies
 - Python3 (version 3.6.8)

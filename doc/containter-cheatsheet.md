@@ -43,13 +43,9 @@
 
 # Lab deployment
 
-1. Assign 3x VMs (RHEL)
-2. Deploy K8s
-   - Setup Nodes
-   - Setup Master
-3. Deploy app
+1. Deploy app
    - Pod with sql_backend container will have a persistent volume resource for the database.
    - [Create a 'readiness probe' for a container?](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
      Alternative, [create an INIT container(s) in a pod](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/)
-4. Is there a nice graphical UI to visualize the lab deployment?
-5. How do we use cloud?
+2. Is there a nice graphical UI to visualize the lab deployment?
+3. How do we use cloud?

@@ -35,6 +35,25 @@ td.book {
   width: 40%;
 }
 
+/* Administrator page styles */
+table.patron {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 5px;
+}
+
+th.patron {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 5px;
+}
+
+td.patron {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 5px;
+}
+
 /* Page menu hyperlink styles */
 a:link.menu {
   background-color: #264A60;

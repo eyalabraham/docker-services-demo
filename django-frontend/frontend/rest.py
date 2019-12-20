@@ -73,5 +73,26 @@ class RestCall():
     def put(self):
         pass
 
-    def delete(self):
-        pass
+    def delete(self, endpoint, json_dictionary):
+        '''
+        The method takes an endpoint and a dictionary representation of JSON data.
+        Issues a DELETE request to the endpoint of the associated host of the RestCall object.
+        '''
+        try:
+            delete_request = requests.delete(url=f'{self.endpoint_url}{endpoint}', json=json_dictionary, timeout=self.timeouts)
+            delete_request.raise_for_status()
+            delete_response = delete_request.json()
+            http_response_code = delete_request.status_code
+        except HTTPError as http_err_code:
+            http_response_code = http_err_code
+            if http_err_code == 400:
+                delete_response = { 'error': 'Bad Request'}
+            elif http_err_code == 404:
+                delete_response = { 'error': 'Not found'}
+            else:
+                delete_response = { 'error': 'Other error'}
+        except Exception as err:
+            delete_response = { 'error': 'Internal Server Error' }
+            http_response_code = 500
+
+        return  (http_response_code, delete_response)
