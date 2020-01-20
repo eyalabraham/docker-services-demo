@@ -43,15 +43,19 @@ class PatronLogin():
         if session_id in self.login_list:
             del self.login_list[session_id]
 
-    def get_username(self, session_id):
+    def get_username(self, session_id, default_user='None'):
         '''If session is tracked return the user name for a session ID'''
         if session_id in self.login_list:
             return self.login_list[session_id]['user_name']
+        else:
+            return default_user
 
-    def get_libid(self, session_id):
+    def get_libid(self, session_id, default_id='None'):
         '''If session is tracked return the library ID for a session ID'''
         if session_id in self.login_list:
             return self.login_list[session_id]['user_lib_id']
+        else:
+            return default_id
 
     def is_loggedin(self, session_id):
         '''Check existence of user in the login dictionary'''

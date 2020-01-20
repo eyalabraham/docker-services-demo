@@ -79,7 +79,7 @@ The application uses a Microservices architecture that is built out of six micro
 Each service is implemented separately, has its REST API interface, and eventually deployed as a container. In order to deploy a container, Docker or Kubernetes need to have the containers' images. To see the six images of the six services type the following on your command line:
 
 ```
-$ docker image ls eyalabraham/*
+docker image ls eyalabraham/*
 ```
 
 The output should look something like this.
@@ -93,7 +93,7 @@ The output should look something like this.
 If your application is running then you can view the running containers by executing the following command:
 
 ```
-$ docker ps
+docker ps
 ```
 
 The command outputs a list of six containers that are running and executing the code that was encapsulated in the six images listed in the previous section.
@@ -108,14 +108,14 @@ If you started the application with a Kubernetes deployment by following the ```
 kubectl get pods,services,deployments -l app=docker-demo
 ```
 
-The command displays information about Pods that encapsulate running containers listed in the previous section, Deployments that maintain the state of the running Pods per environment specification, and finally Services that form the network 'glue' between the containers.
+The command displays information about Pods that encapsulate the running containers listed in the previous section, Deployments that maintain the state of the running Pods per environment specification, and finally Services that form the network 'glue' between the containers.
 
 ![Kubectl get](image/kubectl-get.png)
 
 ### Trace RESTapi calls
 
-The running containers are processes that run in their isolated OS kernel environment, which are controlled by a Kubernetes object called a Pod. In order to form a working application, these processes need to communicate with each other. For example: when you request to view the library catalog, the web front-end sends REST requests to both the catalog and the borrowed-book services. From the responses, the web front-end forms the view you see on the web page.  
-To view the inter-service REST HTTP traffic you need to request Kubernetes to show you the logs that the service code generates. Use the command below to display the logs of your selected Pod. Pick a pod reference from the list in the previous section. When using the ```--follow``` switch the command will not return and will continuously monitor and display new log entries. At this point use the application with the web browser and watch as new REST requests are exchanged with the pod you are watching. To understand what information is being exchanged you can visit the [design.md](design.md) file. To exit the log-watch press the Ctrl-C key combination.
+The running containers are processes that run in their isolated OS kernel environment. These environements are controlled by a Kubernetes object called a Pod. In order to form a working application, these processes need to communicate with each other. For example: when you request to view the library catalog, the web front-end sends REST requests to both the catalog and the borrowed-book services. From the responses, the web front-end forms the view you see on the web page.  
+To view the inter-service REST HTTP traffic you need to display the logs that the service code generates. Use the command below to display the logs of your selected Pod. Pick a pod reference from the list in the previous section. When using the ```--follow``` switch the command will not return and will continuously monitor and display new log entries. At this point use the application with a web browser and watch as new REST requests are exchanged with the pod you are watching. To understand what information is being exchanged you can visit the [design.md](design.md) file. To exit the log-watch press the Ctrl-C key combination.
 
 ```
 kubectl logs pod/<pod name you want to view> --follow

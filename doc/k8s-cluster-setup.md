@@ -8,8 +8,8 @@
 ifconfig -a
 sudo cat /sys/class/dmi/id/product_uuid
 ```
-2. Name the host and the two nodes with appropriate host names (see above)
-3. Create user name and enable it in the ```sudo``` group
+2. Name the host and the two nodes with appropriate host names
+3. Create user name, enable it in the ```sudo``` group, and disable root
 4. Update OS
 ```
 yum -y update
