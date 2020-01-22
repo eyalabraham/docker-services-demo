@@ -28,6 +28,7 @@ spec:
         tier: database
         area: backend
     spec:
+      restartPolicy: Always
       containers:
       - name: sql-backend
         image: 'eyalabraham/sql_backend:0.6'
@@ -38,4 +39,12 @@ spec:
           value: 'rootpassword'
         ports:
         - containerPort: 3306
-      restartPolicy: Always
+# Mount the PVC as the MySQL data directory
+# Comment out all lines below to prevent persistent volume mount
+        volumeMounts:
+        - name: pvc-docker-demo
+          mountPath: "/var/lib/mysql"
+      volumes:
+      - name: pvc-docker-demo
+        persistentVolumeClaim:
+          claimName: pvc-docker-demo

@@ -35,7 +35,7 @@ def catalog(request):
     session_id = request.session.get('session_id', 'None')
     request.session['previous_page'] = 'frontend-catalog'
 
-    # Handle a book boorow POST request
+    # Handle a book borrow POST request
     if request.method == 'POST':
         if patron.is_loggedin(session_id):
             # Get patron ID for borrowing
