@@ -7,7 +7,8 @@ The end goal is to deploy the demo with [persistent volumes](https://docs.docker
 ## Using the demo
 The demo can be deployed on your laptop or on a Kubernetes cluster. For personal laptop use there are two modes to deploy the demo. The first using docker-compose and the second using Kubernetes availbale through a Docker Desktop setup. In order to deploy, first follow the two steps below, then follow the relevant section for the method you want to try.
 1. Install Docker and Kubernetes desktop, for [Windows](https://www.docker.com/blog/docker-windows-desktop-now-kubernetes/) or [macOS](https://thenewstack.io/how-to-install-docker-desktop-with-kubernetes-on-macos/)
-2. Pull the repository or download and extract the zip file from GitHub into a new directory on your system.
+2. Select Branch tag v1.1
+3. Pull the repository or [download and extract the v1.1 branch](https://github.com/eyalabraham/docker-services-demo/archive/v1.1.zip) zip file from GitHub into a new directory on your system.
 
 ### docker-compose deployment
 1. Copy the ```sample.env``` file into a new file named ```.env```
@@ -32,7 +33,10 @@ docker-compose down
 ```
 
 ### Kubernetes deployment
-See [README.md](K8s-deployment/README.md) in the ```K8s-deployment``` directory.
+Use the latest release or select the v1.2 or higher branch, then follow [README.md](K8s-deployment/README.md) in the ```K8s-deployment``` directory.
+
+### OpenShift deployment
+Use the latest release or select the v1.2 or higher branch, then follow the Kubernetes deployment as well as review the notes in [README.md](open-shift/README.md) in the ```open-shift``` directory.
 
 ## Demoing and testing
 A detailed demo script is available for you to use as a guide to familiarize with the application and basic underlying functions. [The demo script](doc/how-to-use-the-demo-app.md) includes a step by step description including screen shots.  

@@ -1,4 +1,6 @@
-# Kubernetes deployment
+# Deployment with Kubernetes
+
+> Use the latest release or select the v1.2 or higher branch
 
 This directory includes YAML files needed for a kubernetes deployment. To deploy use
 
@@ -17,6 +19,11 @@ To stop the running deployment use:
 ```
 kubectl delete deployments, services,pods -l app=docker-demo
 ```
+
+## Persistent volumes
+
+The latest release, or starting with release v1.2, uses a Persistent Volume (PV) to store the library book database. If you are deploying to your laptop, make sure that you use release v1.1.  
+When deploying release v1.2 onto a Kubernetes or OpenShift cluster, the deployment will apply the PVC described in ```docker-demo-pvc.yaml```. Make sure that you have defined a PV or use the appropriate CSI driver to define a storage class.
 
 ## Laptop vs Kubernetes cluster deployment
 
