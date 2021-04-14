@@ -17,6 +17,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+# Add a new user with user id and change to non-root privilege
+# change owner on the app directory so that the local DB can be accessed
+RUN useradd -u 8877 serenity
+RUN chown -R serenity:serenity /usr/src/app
+USER serenity
+
 EXPOSE 8000
 
 ENTRYPOINT ["python", "manage.py", "runserver"]

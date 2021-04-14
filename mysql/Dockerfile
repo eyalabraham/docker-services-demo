@@ -10,5 +10,9 @@ RUN apt-get update -y               \
 
 COPY . /docker-entrypoint-initdb.d/
 
+# Add a new user with user id and change to non-root privilege
+RUN useradd -u 8877 serenity
+USER serenity
+
 EXPOSE 3306
 

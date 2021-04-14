@@ -31,7 +31,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: sql-backend
-        image: 'eyalabraham/sql_backend:0.6'
+        image: 'eyalabraham/sql_backend:0.7'
         args:
         - --skip-ssl
         env:

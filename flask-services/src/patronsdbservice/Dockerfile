@@ -17,6 +17,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+# Add a new user with user id and change to non-root privilege
+RUN useradd -u 8877 serenity
+USER serenity
+
 EXPOSE 5003
 
 ENTRYPOINT [ "python", "./patronsdbservice.py" ]

@@ -9,6 +9,7 @@ Docker CLI [reference](https://docs.docker.com/engine/reference/commandline/dock
 - ```docker <object> inspects <name>``` object is 'network' or 'image' etc.
 - ```docker exec -it <name> [ bash | <shell cmd> ]``` execute a bash shell in a container in interactive tty, exit with Ctrl+p+q
 - ```docker image ls eyalabraham/*:0.2 --format "{{.Repository}}:{{.Tag}}"``` list, filter and format image list
+- ```docker logs --follow  <name>``` follow internal logs of a running image called <name>
 
 # docker-compose
 
