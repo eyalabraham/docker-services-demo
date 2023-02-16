@@ -1,9 +1,9 @@
 #
-# Note: before applying this PVC, make sure you have
+# Note: before applying this PVC with an iSCSI block volume, make sure you have
 #       1. Enabled iSCSI or FC access to storage
 #       2. CSI driver installed 
-#       3. Storage class named 'gold'
-#       4. Array secret
+#       3. Name the storage class in 'storageClassName'
+#       4. Create an array secret if required
 #
 # See here for details:
 # https://www.ibm.com/support/knowledgecenter/SSRQ8T_1.0.0/csi_block_storage_kc_welcome.html
@@ -21,4 +21,4 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  storageClassName: gold
+  storageClassName: your-storage-class-name
