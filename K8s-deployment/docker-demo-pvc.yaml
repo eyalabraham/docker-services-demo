@@ -15,6 +15,7 @@ metadata:
   labels:
     app: docker-demo
     area: backend
+    app.kubernetes.io/part-of: my-library-app
 spec:
   accessModes:
   - ReadWriteOnce

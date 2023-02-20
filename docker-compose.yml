@@ -12,7 +12,7 @@ services:
         environment:
             - MYSQL_ROOT_PASSWORD=${LOCAL_MYSQL_ROOT_PASSWORD}
         command: --skip-ssl
-        image: sql_backend:${IMAGE_BUILD_TAG}
+        image: eyalabraham/sql_backend:${IMAGE_BUILD_TAG}
         container_name: ${DB_SERVICE_NAME}
         networks:
             - library-net
@@ -27,7 +27,7 @@ services:
         command: --host ${LOCAL_HOST} --db ${DB_SERVICE_NAME}
         depends_on:
             - database
-        image: catalog_db:${IMAGE_BUILD_TAG}
+        image: eyalabraham/catalog_db:${IMAGE_BUILD_TAG}
         container_name: ${CATALOG_DB_SERVICE_NAME}
         networks:
             - library-net
@@ -42,7 +42,7 @@ services:
         command: --host ${LOCAL_HOST} --db ${DB_SERVICE_NAME}
         depends_on:
             - database
-        image: borrowing_db:${IMAGE_BUILD_TAG}
+        image: eyalabraham/borrowing_db:${IMAGE_BUILD_TAG}
         container_name: ${BORROW_DB_SERVICE_NAME}
         networks:
             - library-net
@@ -57,7 +57,7 @@ services:
         command: --host ${LOCAL_HOST} --db ${DB_SERVICE_NAME}
         depends_on:
             - database
-        image: patrons_db:${IMAGE_BUILD_TAG}
+        image: eyalabraham/patrons_db:${IMAGE_BUILD_TAG}
         container_name: ${PATRON_DB_SERVICE_NAME}
         networks:
             - library-net
@@ -74,7 +74,7 @@ services:
             - catalog
             - borrow
             - patron
-        image: lib_logic:${IMAGE_BUILD_TAG}
+        image: eyalabraham/lib_logic:${IMAGE_BUILD_TAG}
         container_name: ${BORROW_LOGIC_SERVICE_NAME}
         networks:
             - library-net
@@ -103,7 +103,7 @@ services:
             - borrow
             - patron
             - liblogic
-        image: web_frontend:${IMAGE_BUILD_TAG}
+        image: eyalabraham/web_frontend:${IMAGE_BUILD_TAG}
         container_name: ${FRONTEND_SERVICE_NAME}
         networks:
             - library-net

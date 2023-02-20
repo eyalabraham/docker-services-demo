@@ -12,6 +12,7 @@ metadata:
   labels:
     app: docker-demo
     area: backend
+    app.kubernetes.io/part-of: my-library-app
 # The deployment's spec defines replicas and defines which
 # pods it will apply to, in this case pods that match label 'docker-demo'
 spec:

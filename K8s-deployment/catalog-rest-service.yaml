@@ -5,6 +5,7 @@ metadata:
   labels:
     app: docker-demo
     area: rest-service
+    app.kubernetes.io/part-of: my-library-app
 spec:
   type: ClusterIP
   selector:

@@ -5,6 +5,7 @@ metadata:
   labels:
     app: docker-demo
     area: web-server
+    app.kubernetes.io/part-of: my-library-app
 spec:
   replicas: 1
   selector:

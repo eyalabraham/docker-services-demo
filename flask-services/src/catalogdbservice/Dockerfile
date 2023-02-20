@@ -17,9 +17,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# Add a new user with user id and change to non-root privilege
-RUN useradd -u 8877 serenity
-USER serenity
+# Change owner on the app directory so that the local DB can be accessed
+RUN chgrp -R 0 /usr/src/app && \
+    chmod -R g=u /usr/src/app
 
 EXPOSE 5001
 

@@ -5,6 +5,7 @@ metadata:
   labels:
     app: docker-demo
     area: web-server
+    app.kubernetes.io/part-of: my-library-app
 spec:
   # This service type allows assignment of local IP
   # that is external to the pod, in this case local host.

@@ -48,7 +48,8 @@ Docker CLI [reference](https://docs.docker.com/engine/reference/commandline/dock
 
 1. Deploy app
    - Pod with sql_backend container will have a persistent volume resource for the database.
+2. Ideas
    - [Create a 'readiness probe' for a container?](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
      Alternative, [create an INIT container(s) in a pod](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/)
-2. Is there a nice graphical UI to visualize the lab deployment?
-3. How do we use cloud?
+   - Create an administrator service that 'pings' a new REST heartbeat end point and shows status on a web page. 
+
