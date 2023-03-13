@@ -5,7 +5,7 @@ The end goal is to deploy the demo with [persistent volumes](https://docs.docker
 > **Note:** this project was designed with extreme simplicity in mind, specifically to be used as a demo or a teaching/learning tool. Many liberties were taken with the architecture and the design in order to eliminate complexities such as security and scalability. This is not a secure, production quality, application but rather a learning or teaching tool for Microservices and Container technology; possibly also a reasonable starting point for a beginner or unexperienced programmer.
 
 ## Using the demo
-The demo can be deployed on your laptop or on a Kubernetes cluster. For personal laptop use there are two modes to deploy the demo. The first using docker-compose and the second using Kubernetes availbale through a Docker Desktop setup. In order to deploy, first follow the two steps below, then follow the relevant section for the method you want to try.
+The demo can be deployed on your laptop or on a Kubernetes cluster. For personal laptop use there are two modes to deploy the demo. The first using docker-compose and the second using Kubernetes available through a Docker Desktop setup. In order to deploy, first follow the two steps below, then follow the relevant section for the method you want to try.
 1. Install Docker and Kubernetes desktop, for [Windows](https://www.docker.com/blog/docker-windows-desktop-now-kubernetes/) or [macOS](https://thenewstack.io/how-to-install-docker-desktop-with-kubernetes-on-macos/)
 2. Select Branch tag v1.1
 3. Pull the repository or [download and extract the v1.1 branch](https://github.com/eyalabraham/docker-services-demo/archive/v1.1.zip) zip file from GitHub into a new directory on your system.
@@ -60,38 +60,7 @@ See the [design.md](doc/design.md) file
 ## Dependencies
 - Python3 (version 3.6.8)
 - MySQL database server (version 5.7.27)
-
-### requirements.txt for Services
-```
-$ pip freeze
-certifi==2019.9.11
-chardet==3.0.4
-Click==7.0
-Flask==1.1.1
-idna==2.8
-itsdangerous==1.1.0
-Jinja2==2.10.3
-MarkupSafe==1.1.1
-mysql-connector-python==8.0.18
-protobuf==3.10.0
-requests==2.22.0
-six==1.13.0
-urllib3==1.25.7
-Werkzeug==0.16.0
-```
-
-### requirements.txt for Frontend
-```
-$ pip freeze
-certifi==2019.9.11
-chardet==3.0.4
-Django==2.2.7
-idna==2.8
-pytz==2019.3
-requests==2.22.0
-sqlparse==0.3.0
-urllib3==1.25.7
-```
+- Python dependencies in local ```requirements.txt``` files
 
 ## Resources
 [Django web framework](https://www.djangoproject.com/), [Flask web framework](https://www.fullstackpython.com/flask.html)
