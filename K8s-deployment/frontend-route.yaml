@@ -1,0 +1,15 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: frontend
+  namespace: NAMESPACE
+  labels:
+    app: docker-demo
+    app.kubernetes.io/part-of: my-library-app
+spec:
+  path: /
+  to:
+    kind: Service
+    name: frontend
+  port:
+    targetPort: 8000

@@ -11,3 +11,5 @@ First, edit the persistent volume claim (PVC) YAML file ```docker-demo-pvc.yaml`
 Next, create a new project with ```oc new-project <name>``` and make sure the selected current project is set to the one you created. Deploy the application into the project namespace using ```oc apply -f .```
 
 Finally, create a route in OpenShift by going to ```Administrator > Networking > Routes``` and then Create Route under your project (name space) name. The route YAML in this directory is only a sample for reference, do not apply it in your project!
+
+For an automated deployment, login to you cluster with ```oc login [...]``` and run the ```ocpdeploy.sh``` script from the ```..\K8s-deployment``` directory.
