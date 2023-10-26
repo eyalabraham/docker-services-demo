@@ -13,3 +13,5 @@ spec:
     name: frontend
   port:
     targetPort: 8000
+  tls:
+    termination: edge
