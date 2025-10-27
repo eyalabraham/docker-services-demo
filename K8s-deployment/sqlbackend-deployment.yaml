@@ -34,7 +34,8 @@ spec:
       - name: sql-backend
         image: 'eyalabraham/sql_backend:0.8'
         args:
-        - --skip-ssl
+        - '--skip-ssl'
+        - '--ignore-db-dir=lost+found'
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: 'rootpassword'
